@@ -1,25 +1,17 @@
-name: Build Android APK
+name: Pegar Arquivo de Ativacao
 on: [push]
 jobs:
-  build:
+  activation:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Unzip Client
-        run: unzip nro-client-only.zip
-
-      - name: Setup Unity
-        uses: game-ci/unity-builder@v4
+      - name: Pedir Arquivo
+        uses: game-ci/unity-request-activation-file@v2
         with:
-          targetPlatform: Android
           unityVersion: 2021.3.16f1
-          projectPath: . 
-          allowDirtyBuild: true # Adicionei esta linha para corrigir o erro!
-
-      - name: Upload APK
+      - name: Salvar Arquivo
         uses: actions/upload-artifact@v4
         with:
-          name: DragonBoyBrasil
-          path: build/Android/Android.apk
+          name: arquivo-pedido
+          path: ./*.alf
